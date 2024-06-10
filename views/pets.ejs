@@ -1,0 +1,45 @@
+<%- include('layout/header') %>
+
+<% if (pets !='') { %>
+    
+<section>
+    <table class="table petsPanel">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Origin</th>
+            <th scope="col">Category</th>
+            <th scope="col">Image</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <% pets.forEach((pet, index) => { %>
+            <tr>
+                <td><%= index  %></td>
+                <td><%= pet.name %></td>
+                <td><%= pet.origin %></td>
+                <td><%= pet.category.name %></td>
+                <td><img src="uploads/<%= pet.image %>" width="50" class="img-thumbnail" alt=""></td>
+                <td>
+                    <div class="deletePetForm">
+                        <a href="/pets/edit/<%= pet._id  %>" class="text-success"><i class="fas fa-edit fa-lg mx-1"></i></a>
+                        <form action="/pets/delete/<%= pet._id %>" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button type="submit" class="deletePetBtn text-danger"><i class="fas fa-trash fa-lg mx-1"></i></button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        <% }) %>
+    </table>
+</section>
+
+<% } else { %>
+    <section>
+        <h1 class="text-center text-secondary">No pets in db</h1>
+    </section>
+<% }  %>
+
+   
+<%- include('layout/footer') %>

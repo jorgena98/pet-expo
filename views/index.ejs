@@ -1,0 +1,47 @@
+<%- include('layout/header') %>
+
+<section class="container">
+    <div class="row">
+        <% if (pets.length > 0) { %>
+            <% pets.forEach(pet => { %>
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="/uploads/<%= pet.image %>" class="card-img-top" alt="<%= pet.name %>" width="2em">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= pet.name %> | <%= pet.origin %></h5>
+                            <p class="card-text"><strong>Category </strong><%= pet.category.name %></p>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <div class="col-md-12">
+                <p>No pets found.</p>
+            </div>
+        <% } %>
+    </div>
+</section>
+   
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <% if (currentPage > 1) { %>
+            <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                <a class="page-link" href="/?page=<%= currentPage - 1 %>&limit=<%= limit %>">Previous</a>
+            </li>
+        <% } %>
+
+        <% for (let i = 1; i <= totalPages; i++) { %>
+            <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+            <a class="page-link" href="/?page=<%= i %>&limit=<%= limit %>"><%= i %></a>
+            </li>
+        <% } %>
+
+        <% if (currentPage > 1) { %>
+            <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                <a class="page-link" href="/?page=<%= currentPage + 1 %>&limit=<%= limit %>">Next</a>
+            </li>
+        <% } %>
+    </ul>
+  </nav>
+  
+<%- include('layout/footer') %>

@@ -1,0 +1,30 @@
+<%- include('layout/header') %>
+
+<section class="formContainer">
+    
+   <h2>Login</h2>
+
+   <% if (message) { %>
+      <p class="alert alert-danger" role="alert">
+        <%= message %>
+      </p>
+    <% } %>
+
+   <form action="/login" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Username" value="<%= username %>">
+        <p class="text-error"><%= usernameField %></p>
+         <% if (usernameField) { %>
+            <p class="text-error"><%= usernameField %></p>
+         <% } %>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Password"> 
+        
+        <input type="submit" value="Login">
+   </form>
+</section>
+
+<%- include('layout/footer') %>

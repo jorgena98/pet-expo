@@ -1,0 +1,57 @@
+<%- include('layout/header') %>
+
+<section class="formContainer">
+  <% if (message) { %>
+    <div class="alert alert-dismissible fade show alert-<%= message.type%>" role="alert">
+      <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+      <strong><%= message.message%></strong>
+    </div>
+  <% } %>
+
+  <h2>Edit "<%= pet ? pet.name : (formData.pet_name || '') %>"</h2>
+  <form id="edit-pet" action="/pets/update/<%= pet._id%>" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <input type="hidden" name="old_image" value="<%= pet.image %>">
+
+    <label for="name">Name</label>
+    <input type="text" id="name" name="pet_name" value="<%= formData.pet_name ? formData.pet_name : (pet.name || '') %>">
+    <% if (errors && errors.length > 0 && errors.some(error => error.path === 'pet_name')) { %>
+      <p class="text-error"><%= errors.find(error => error.path === 'pet_name').msg %></p>
+    <% } %>
+    
+    
+    <label for="origin">Origin</label>
+    <input type="text" id="origin" name="pet_origin" value="<%= formData.pet_origin ? formData.pet_origin : (pet.origin || '') %>">
+    <% if (errors && errors.length > 0 && errors.some(error => error.path === 'pet_origin')) { %>
+      <p class="text-error"><%= errors.find(error => error.path === 'pet_origin').msg %></p>
+    <% } %>
+    
+    <label for="category">Category</label>
+    <select id="category" name="pet_category">
+        <option value="">Category</option>
+        <% categories.forEach(category => { %>
+          <option value="<%= category._id %>" <%= (formData.pet_category && formData.pet_category.toString() === category._id.toString()) ? 'selected' : (pet && pet.category && pet.category._id.toString() === category._id.toString() ? 'selected' : '') %>><%= category.name %></option>
+        <% }); %>
+    </select>
+    <% if (errors && errors.length > 0 && errors.some(error => error.path === 'pet_category')) { %>
+      <p class="text-error"><%= errors.find(error => error.path === 'pet_category').msg %></p>
+    <% } %>
+    
+    <div class="mb-3">
+      <label for="formFile" class="form-label">Image</label>
+      <input class="form-control" type="file" id="formFile" name="pet_image">
+    </div>
+    
+    <div class="mb-3">
+      <p>Old image</p>
+      <img src="/uploads/<%= pet.image %>" width="100" class="img-thumbnail">
+    </div>
+
+    <input type="submit" value="Update">
+  </form>
+
+</section>
+
+
+<%- include('layout/footer') %>

@@ -1,0 +1,38 @@
+.formContainer {
+    width: 40em;
+    padding: 2em;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.searchForm {
+    align-items: flex-start;
+}
+
+.searchForm > select {
+    margin-bottom: 0em;
+}
+
+form .text-error {
+    color: #dc3545;
+}
+
+p.alert-danger {
+    margin-bottom: 0em;
+}
+
+.formContainer {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.petsPanel .deletePetBtn {
+    border:none;
+    background-color: transparent;
+}
+
+.deletePetForm {
+    display: flex;
+}
